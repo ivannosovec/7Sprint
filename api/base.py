@@ -1,5 +1,9 @@
 import requests
+import logging
 from constants import BASE_URL
+
+# Настройка логгера для модуля
+logger = logging.getLogger(__name__)
 
 
 class ApiClient:
@@ -14,7 +18,8 @@ class ApiClient:
             return response
         except requests.exceptions.RequestException as e:
             response = e.response
-            print(f"Error during API POST request to {url}: {e}")
+            # Заменяем print на логирование
+            logger.error(f"API POST request to {url} failed: {e}")
             return response
 
     def get(self, endpoint, params=None):

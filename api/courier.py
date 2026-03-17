@@ -1,5 +1,4 @@
 import allure
-import random
 
 
 class CourierApi:
@@ -18,12 +17,7 @@ class CourierApi:
             self.courier_id = response.json().get("id")
         return response
 
-    @allure.step('Генерация валидных данных курьера')
-    def generation_courier_data(self):
-        login = f'courier{random.randint(100000, 999999)}'
-        password = "123321123qq"
-        first_name = "Alexandr"
-        return {"login": login, "password": password, "firstName": first_name}
+    # ⛔️ Метод generation_courier_data удалён из класса
 
     @allure.step('Получение ID курьера')
     def get_courier_id(self):

@@ -1,4 +1,5 @@
 import allure
+from helpers import generate_courier_data
 
 
 @allure.story('Получение списка заказов')

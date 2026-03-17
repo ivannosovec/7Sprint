@@ -1,4 +1,5 @@
 import allure
+from helpers import generate_courier_data
 
 
 @allure.story('Авторизация курьера')
@@ -42,3 +43,27 @@ class TestCourierLogin:
         response = courier_api.login_courier(data=login_data)
         assert response.status_code == 400
         assert response.json()['message'] == "Недостаточно данных для входа"
+    
+    @allure.title('Авторизация с некорректным паролем')
+    def test_login_wrong_password(self, courier_api, created_courier):
+        """Правильный логин + неправильный пароль"""
+        courier_data = created_courier["data"]
+        login_data = {
+            "login": courier_data["login"],
+            "password": "wrongpassword123"
+        }
+        response = courier_api.login_courier(data=login_data)
+        assert response.status_code == 404
+        assert response.json()['message'] == "Учетная запись не найдена"
+    
+    @allure.title('Авторизация с некорректным логином')
+    def test_login_wrong_login(self, courier_api, created_courier):
+        """Неправильный логин + правильный пароль"""
+        courier_data = created_courier["data"]
+        login_data = {
+            "login": "wrong_login_123",
+            "password": courier_data["password"]
+        }
+        response = courier_api.login_courier(data=login_data)
+        assert response.status_code == 404
+        assert response.json()['message'] == "Учетная запись не найдена"

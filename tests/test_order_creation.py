@@ -1,5 +1,6 @@
 import allure
 import pytest
+from helpers import generate_courier_data
 
 
 @allure.story('Создание заказа')
